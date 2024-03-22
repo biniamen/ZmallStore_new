@@ -1,0 +1,57 @@
+
+
+
+<div class="container-fluid">
+    <!-- <h2>Another Component</h2>
+    <p>{{ responseData | json }}</p> -->
+      <!-- end page title end breadcrumb -->
+      <div class="row" *ngIf="responseData">
+        <br>
+        <div class="col-12">
+            <div class="card"  *ngFor="let cartorder of responseData.orders; let i = index ">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <img src="../assets/images/products/img-7.png" alt="" class=" mx-auto  d-block" height="400">
+                        </div><!--end col-->
+                        <div class="col-lg-6 align-self-center">
+                            <div class="single-pro-detail">
+                                <p class="mb-1">{{cartorder.user_detail.phone}}</p>
+                                <div class="custom-border mb-3"></div>
+                                <h3 class="pro-title">Crovex Morden Watch</h3>
+                                <p class="text-muted mb-0">Morden and good look model 2019</p>
+                                <ul class="list-inline mb-2 product-review">
+                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    <li class="list-inline-item"><i class="mdi mdi-star-half text-warning"></i></li>
+                                    <li class="list-inline-item">4.5 (30 reviews)</li>
+                                </ul>
+                                <h2 class="pro-price">$89.00 <span><del>$180.00</del></span><span class="text-danger font-weight-bold ml-2">50% Off</span></h2>
+                                <h6 class="text-muted font-13">Features :</h6>
+                                <ul class="list-unstyled pro-features border-0">
+                                    <li>It is a long established fact that a reader will be distracted.</li>
+                                    <li>Contrary to popular belief, Lorem Ipsum is not text. </li>
+                                </ul>
+                                <h6 class="text-muted font-13 d-inline-block align-middle mr-2">Color :</h6>
+                                <div class="radio2 radio-info2 form-check-inline ml-2">
+                                    <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked="">
+                                    <label for="inlineRadio1"></label>
+                                </div>
+                                <div class="radio2 radio-dark2 form-check-inline">
+                                    <input type="radio" id="inlineRadio2" value="option2" name="radioInline">
+                                    <label for="inlineRadio2"></label>
+                                </div>
+                                <div class="quantity mt-3 ">
+                                    <input class="form-control" type="number" min="0" value="0" id="example-number-input">
+                                    <a href="" class="btn btn-gradient-primary text-white px-4 d-inline-block"><i class="mdi mdi-cart mr-2"></i>Add to Cart</a>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end card-body-->
+            </div><!--end card-->
+        </div><!--end col-->
+    </div><!--end row-->
+</div>

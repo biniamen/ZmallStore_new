@@ -1,0 +1,68 @@
+.scrollable-div {
+    height: 600px;
+    overflow: auto;
+  }
+  .right-align {
+    text-align: right;
+  }
+.black-button {
+    background-color: black;
+    color: white;
+  }
+
+  .ttimeline {
+    position: relative;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+
+  .ttimeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: #ccc;
+    top: 0;
+    bottom: 0;
+    left: 0%;
+    margin-left: -1px;
+  }
+
+  .ttimeline-item {
+    position: relative;
+    margin-bottom: 50px;
+  }
+
+  .ttimeline-item::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+    top: 0;
+    left:-15%;
+    margin-left: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ttimeline-item .step-number {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .ttimeline-item .content {
+    padding: 0px;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+  }
+
+  .ttimeline-item:nth-child(even)::before {
+    background-color: #e5e909;
+  }
+
+  .ttimeline-item:nth-child(even) .content {
+    background-color: #f3eded;
+  }

@@ -1,0 +1,342 @@
+<div class="page-content" *ngIf="(accountService.currentUser$  | async) as user">
+
+  <div class="row inbox-wrapper">
+    <div class="col-lg-12" >
+      <div class="card">
+        <div class="card-body " >
+
+          <div *ngIf="!responseData || responseData.length === 0">
+            No Result Found
+          </div>
+
+
+        <div class="row " *ngFor="let order of responseData.orders; let i = index "  (click)="selectedorder = order" >
+
+            <!-- New order -->
+            <div class="col-md-8 border-end-lg"  >
+                  <div class="col-md-12" *ngIf="order.order_status === 1" >
+                    <h6 class="card-header bg-primary">New Order  ({{order.unique_id}})</h6>
+
+                      <div class="card" >
+                        <div class="card-header btn-primary">
+                          {{ ' (+251'+order.user_detail.phone+')' }}
+                        </div>
+                        <!-- <app-edit-order [dataArray]="responseData"></app-edit-order> -->
+                          <div class="card-body">
+                            <a href="javascript:;" class="d-flex align-items-center border-bottom pb-3">
+                              <div class="me-3">
+                                <img src="../../../assets/assets/images/zmall_80x80.png" class="rounded-circle wd-35" alt="user">
+                              </div>
+                              <div class="w-100">
+                                    <div class="d-flex justify-content-between">
+                                      <h6 class="text-body mb-2">{{order.cart_detail.order_details[0].product_name}}</h6>
+                                    </div>
+                                    <!-- <input type="number" [(ngModel)]="selectedOrderIndex"> -->
+                                    <label class="tx-11 fw-bolder mb-0 text-uppercase">Order By:</label>
+                                    <p class="text-muted tx-13"><i data-feather="user"></i> {{ order.user_detail.first_name+' ('+order.user_detail.email+')' }}</p>
+                                    <label class="tx-11 fw-bolder mb-0 text-uppercase">Price:</label>
+                                    <p class="text-muted tx-13"><i data-feather="user"></i> {{ user.currency+''+order.cart_detail.total_cart_price }}</p>
+                                    <label class="tx-11 fw-bolder mb-0 text-uppercase" *ngIf="order.is_schedule_order==false">ASP <br> </label>
+                                    <td *ngIf="order.is_schedule_order==true && order.schedule_order_start_at !==null">
+                                      <p class="text-muted tx-13"> {{ moment(order.schedule_order_start_at).tz(order.timezone !== '' ? order.timezone: 'Asia/Kolkata').format('DD MMM YYYY HH:mm a') }}</p>
+                                    </td>
+                                    <label class="tx-11 fw-bolder mb-0 text-uppercase">Location:</label>
+                                    <p class="text-muted tx-13"><i data-feather="user"></i>{{ order.cart_detail.destination_addresses[0].address+' ('+order.order_payment_detail.total_distance+' Km)' }}</p>
+
+                            </div>
+
+                            </a>
+                            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+                              <!-- <button type="button"  class="btn btn-success btn-xs">Accept</button> -->
+                              <button type="button" routerLink="/editOrder" (click)="sendResponseData(responseData)" class="btn btn-danger btn-xs" >Edit</button>
+                              <button type="button"  class="btn btn-success btn-xs"  (click)="acceptOrder(order)" >Accept</button>
+
+                              <button type="button" class="btn btn-xs btn-primary black-button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-xl">View Detial</button>
+                              <button type="button" class="btn btn-xs btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                Reject
+                              </button>
+                            </div>
+                            <!--Cancellation Conformation Modal -->
+                              <div class="modal fade badge bg-dark" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Cancellation Reason</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="mb-3">
+                                        <label for="name" class="form-label">Reason</label>
+                                        <input id="name" class="form-control" name="name" #reasonInput type="text">
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary" [disabled]="!reasonInput.value" (click)="rejectOrder(order,reasonInput.value)">Submit</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+
+                    </div>
+                  </div>
+
+            </div>
+
+             <!-- New order -->
+
+
+
+      </div>
+      <!-- Modal for detail -->
+      <div class="modal fade bd-example-modal-xl" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+
+        <div class="modal-dialog scrollable modal-xl">
+
+          <div class="modal-content" *ngIf="selectedorder ">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Order Detials</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+              <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                  <h6 class="card-title badge bg-info text-uppercase"> Order Details</h6>
+                  <div class="card-body scrollable-div " data-mdb-perfect-scrollbar='true'>
+
+
+                    <!-- <p class="text-muted mb-3">{{selectedorder.cart_detail.order_details[0].product_name}}
+                      <code>
+                      </code></p> -->
+
+                      <div class="card">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-9">
+                                <div class="card-header badge bg-success">
+                                  <h5>{{selectedorder.cart_detail.order_details[0].product_name}}</h5>
+                                </div>
+                              </div>
+
+                              <div class="col-md-3">
+                                <div class="card-header badge bg-danger price">
+                                  <h5 class="right-align">{{user.currency+' '+selectedorder.cart_detail.order_details[0].total_item_price}}</h5>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="table-responsive " *ngFor="let items of selectedorder.cart_detail.order_details">
+                              <table class="table table-hover .table-hover p-4 border-bottom" >
+                                <thead>
+                                  <tr>
+                                    <th style="width: 20%">Item Name</th>
+                                    <th style="width: 20%">Price</th>
+                                    <th style="width: 40%">Quantity</th>
+                                    <th style="width: 20%">Total Price</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody >
+                                  <tr *ngFor="let itemslist of items.items">
+                                    <th>{{itemslist.item_name}}</th>
+                                    <th>{{itemslist.item_price}}</th>
+                                    <th>{{itemslist.quantity}}</th>
+                                    <th>{{user.currency+' '+itemslist.total_price}}</th>
+
+                                  </tr>
+
+                                </tbody>
+                              </table>
+
+                          </div>
+                          </div>
+                      </div>
+
+
+                      <div class="card" *ngFor="let spec of selectedorder.cart_detail.order_details.items">
+                        <div class="card-body">
+                          <h6 class="card-title">Specification</h6>
+                          <h6 class="card-title text-center">Payment</h6>
+                      <ul class="list-group" *ngFor="let specification of spec.specifications">
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Wallet:</label> {{user.currency+' '+specification.wallet}}
+                          </li>
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Cash Payment:</label> {{user.currency+' '+selectedorder.order_payment_detail.cash_payment}}
+                          </li>
+
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Other Payment:</label>{{user.currency+' '+selectedorder.order_payment_detail.card_payment}}
+                          </li>
+                      </ul>
+                        </div>
+                      </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 grid-margin stretch-card">
+              <div class="card">
+                <h6 class="card-title badge bg-info text-uppercase"> Order Status</h6>
+                <div class="card-header">
+                  <h6 class="card-title badge bg-warning text-uppercase"> Order Status</h6>
+                  <div class="card-body">
+                    <div class="ttimeline" *ngFor="let status of selectedorder.date_time">
+
+                      <div class="ttimeline-item">
+                        <div class="step-number"></div>
+                        <div class="content col-md-4">
+
+                          <h6 class="badge rounded-pill bg-info">{{getStatus(status.status)}}</h6>
+                          <!-- <h6>{{getOrderStateTranslation(getStatus(status.status))}}</h6> -->
+                          <p class="badge rounded-pill bg-primary">{{status.date | date:'dd MMM yyyy hh:mm a'}}</p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              </div>
+
+              <div class="col-md-3 grid-margin stretch-card">
+
+                <div class="card scrollable-div " data-mdb-perfect-scrollbar='true'>
+                  <h6 class="card-header bg-primary"> {{selectedorder.order_payment_detail.invoice_number}}</h6>
+                  <div class="card-header badge bg-danger text-uppercase ">
+                    <h6> {{user.currency+' '+selectedorder.order_payment_detail.cash_payment}}</h6>
+                  </div>
+                  <div class="card-body ">
+                      <h6 class="card-title text-center">Deliveries Fee</h6>
+                      <ul class="list-group">
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Service Payment:</label>{{user.currency+' '+selectedorder.order_payment_detail.total_service_price}}
+                          </li>
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Tax Fee:</label> {{user.currency+' '+selectedorder.order_payment_detail.service_tax}}
+                          </li>
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Promo Bonus:</label> {{user.currency+' '+selectedorder.user_detail.promo_count}}
+                          </li>
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Delivery Price:</label><span class="badge bg-danger">{{user.currency+' '+selectedorder.order_payment_detail.total_service_price}}</span>
+                          </li>
+                      </ul>
+                      <hr>
+                      <h6 class="card-title text-center">Order Fee</h6>
+                      <ul class="list-group">
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Cart Price:</label> {{user.currency+' '+selectedorder.cart_detail.total_cart_price}}
+                          </li>
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Tax Price:</label> {{user.currency+' '+selectedorder.order_payment_detail.service_tax}}
+                          </li>
+
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Order Price:</label><span class="badge bg-danger">{{user.currency+' '+selectedorder.cart_detail.total_cart_price}}</span>
+                          </li>
+                      </ul>
+
+                      <h6 class="card-title text-center">Payment</h6>
+                      <ul class="list-group">
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Wallet:</label> {{user.currency+' '+selectedorder.user_detail.wallet}}
+                          </li>
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Cash Payment:</label> {{user.currency+' '+selectedorder.order_payment_detail.cash_payment}}
+                          </li>
+
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Other Payment:</label>{{user.currency+' '+selectedorder.order_payment_detail.card_payment}}
+                          </li>
+                      </ul>
+                      <h6 class="card-title text-center">Earning</h6>
+                      <ul class="list-group">
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Service Payment:</label> {{user.currency+' '+selectedorder.order_payment_detail.pay_to_store}}
+                          </li>
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Order Payment:</label> {{user.currency+' '+selectedorder.order_payment_detail.pay_to_store}}
+                          </li>
+
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Profit:</label>{{user.currency+' '+selectedorder.order_payment_detail.total_store_income}}
+                          </li>
+
+                          <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Pay By Admin:</label>{{user.currency+' '+selectedorder.order_payment_detail.pay_to_provider}}
+                          </li>
+                      </ul>
+
+
+                </div>
+
+            </div>
+
+
+
+
+              </div>
+              </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+<!-- Modal for Edit Order -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content"  *ngIf="selectedorder ">
+      <div class="modal-header">
+        <h5 class="modal-title">Cart Items In Order</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+      </div>
+      <div class="modal-body" >
+        <div class="container-fluid">
+
+          <!-- end page title end breadcrumb -->
+          <div class="row">
+            <div class="col-12">
+                <div class="card" *ngFor="let items of selectedorder.cart_detail.order_details">
+                    <div class="card-body " >
+                        <div class="row" *ngFor="let oderitem of items.items">
+                            <div class="col-lg-6">
+                                <img src="../assets/images/products/img-7.png" alt="" class=" mx-auto  d-block" height="400">
+                            </div><!--end col-->
+                            <div class="col-lg-6 align-self-center">
+                                <div class="single-pro-detail">
+                                    <div class="custom-border mb-3"></div>
+                                    <h3 class="pro-title">{{oderitem.item_name}}</h3>
+                                    <p class="text-muted mb-0">{{oderitem.details}}</p>
+
+                                    <h2 class="pro-price"><span class="text-danger font-weight-bold ml-2">{{'ብር '+oderitem.total_item_price}}</span></h2>
+
+
+                                    <div class="quantity mt-3 ">
+                                        <input class="form-control" type="number" min="0" value="0" id="example-number-input">
+                                        <a href="" class="btn btn-gradient-primary text-white px-4 d-inline-block"><i class="mdi mdi-cart mr-2"></i>Add to Cart</a>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!--end card-body-->
+                </div><!--end card-->
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+<script>
+  // javascript
+var scrollbarExample = new PerfectScrollbar('.perfect-scrollbar-example');
+</script>

@@ -1,0 +1,82 @@
+
+<div class="container" *ngIf="(accountService.currentUser$  | async) as user">
+
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12">
+
+      <div class="row">
+
+        <div class="col-xl-12">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tables</a></li>
+            <li class="breadcrumb-item active">Table Plugins</li>
+          </ul>
+          <h1 class="page-header">
+            Table Plugins <small>page header description goes here...</small>
+          </h1>
+          <hr class="mb-4">
+
+          <div id="datatable" class="mb-5">
+            <h4>Datatable</h4>
+
+            <div class="card">
+              <div class="card-body">
+                <table id="datatableDefault" class="table text-nowrap w-100"  >
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>User</th>
+                      <th>Deliveryman</th>
+                      <th>Date</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of responseData.orders; let i = index "  (click)="selectedorder = order">
+                      <td>{{order.unique_id}}</td>
+                      <td>{{order.unique_id}}</td>
+                      <td>{{order.unique_id}}</td>
+                      <td>{{order.unique_id}}</td>
+                      <td>{{order.unique_id}}</td>
+                      <td>{{order.unique_id}}</td>
+                      <td>{{order.unique_id}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="hljs-container rounded-bottom">
+                <pre><code class="xml" data-url="../../../assets/assets/data/table-plugins/code-1.json"></code></pre>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+        <!-- <div class="col-xl-3">
+
+          <nav id="sidebar-bootstrap" class="navbar navbar-sticky d-none d-xl-block">
+            <nav class="nav">
+              <a class="nav-link" href="#datatable" data-toggle="scroll-to">Datatable</a>
+              <a class="nav-link" href="#bootstrapTable" data-toggle="scroll-to">Bootstrap
+                table</a>
+            </nav>
+          </nav>
+
+        </div> -->
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+

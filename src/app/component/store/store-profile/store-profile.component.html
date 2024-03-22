@@ -1,0 +1,61 @@
+<div class="page-content">
+<div class="card">
+    <div class="card-body" *ngIf="(accountService.currentUser$  | async) as user">
+        <!-- <div class="card-header  bg-primary">
+            {{user.store.company_name}}
+        </div> -->
+        <div class="col-lg-6 scrollable-div " data-mdb-perfect-scrollbar='true'  *ngIf="(accountService.currentUser$  | async) as user" >
+            <h4 class="card-header " style="background-color: rgb(218, 9, 9); color:rgb(247, 244, 244);">Store Profile</h4>
+            <div class="d-flex align-items-center justify-content-between p-3 border-bottom tx-16">
+
+              <div class="d-flex align-items-center">
+                <!-- <span>{{user.store.country_id | uppercase}}</span> -->
+              </div>
+              <div>
+
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between flex-wrap px-3 py-2 border-bottom">
+              <div class="d-flex align-items-center">
+
+                <div class="d-flex align-items-center">
+                  <a href="#" class="text-body text-bold">{{user.store.company_name | uppercase}}</a>
+                  <!-- <span class="mx-2 text-muted">{{user.store.company_name | uppercase}}</span> -->
+
+
+                </div>
+              </div>
+              <!-- <div class="tx-13 text-muted mt-2 mt-sm-0">{{user.store.company_name | uppercase}}</div> -->
+            </div>
+            <div class="p-4 border-bottom">
+              <div class="card">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card-body">
+                      <ul class="list-group">
+                        <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Country:</label> {{ user.store.address.split(',')[2].trim() }}
+                           </li>
+                           <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">City:</label> {{user.store.address.split(',')[1].trim()}}
+                           </li>
+                           <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Refferal:</label> {{user.store.referral_code | uppercase}}
+                           </li>
+                           <li class="list-group-item disabled" aria-disabled="true"><label class="tx-11 fw-bolder mb-0 text-uppercase">Wallet:</label> {{user.store.wallet}}
+                           </li>
+                      </ul>
+                  </div>
+                  </div>
+                </div>
+                <!-- <div class="card-header badge bg-success">
+                  STORE DETAILS
+                </div> -->
+
+
+
+          </div>
+
+    </div>
+
+  </div>
+
+</div>
+

@@ -1,0 +1,149 @@
+<div class="main-wrapper">
+    <div class="page-wrapper full-page">
+        <div class="page-content d-flex align-items-center justify-content-center">
+
+            <div class="row w-100 mx-0 auth-page">
+                <div class="col-md-8 col-xl-6 mx-auto">
+                    <div class="card">
+                        <div class="row">
+            <!-- <div class="col-md-4 pe-md-0">
+              <div class="auth-side-wrapper">
+
+              </div>
+            </div> -->
+            <div class="col-md-12 ps-md-0">
+              <div class="auth-form-wrapper px-4 py-5">
+                <a href="#" class="noble-ui-logo d-block mb-2">Store<span>Registration</span></a>
+                <h5 class="text-muted fw-normal mb-4"></h5>
+                <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register2()" class="forms-sample">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" [formControl]="$any(registerForm.controls['name'])"
+                               name="name" placeholder="Name" required="Please Enter Name">
+                          </div>
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" [formControl]="$any(registerForm.controls['email'])" name="email"  placeholder="Email">
+
+                      </div>
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="phone" [formControl]="$any(registerForm.controls['phone'])"  name="phone" placeholder="Phone">
+                      </div>
+
+                  </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="country" class="form-label">Country</label>
+                            <select id="country" class="form-select" name="country_id" [(ngModel)]="selectedCountry" (change)="onCountrySelected(selectedCountry)" [formControl]="$any(registerForm.controls['country_id'])" >
+                              <option [ngValue]="null">--Select a Country--</option>
+                              <option *ngFor="let country of countries" [value]="country._id">{{ country.country_name }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="country">City:</label>
+                          <select id="city" class="form-select" name="city_id" [(ngModel)]="selectedCity" (change)="onCitySelected(selectedCity)" [formControl]="$any(registerForm.controls['city_id'])">
+                            <option value="">Select a city</option>
+                            <option *ngFor="let city of cities" [value]="city._id">{{ city.city_name }}</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <!-- <label for="ageSelect" class="form-label">Country</label> -->
+                          <label for="country">Select Delivery Type:</label>
+                          <select id="store_delivery_id" class="form-select" name="store_delivery_id" [formControl]="$any(registerForm.controls['store_delivery_id'])">
+                            <option value="">Select a Delivery Type</option>
+                            <option *ngFor="let delivery of deliveries" [value]="delivery._id">{{ delivery.delivery_name }}</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+
+
+                    </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" [formControl]="$any(registerForm.controls['password'])"  name="password" placeholder="Password">
+                          </div>
+                        <div class="mb-3">
+                        <label for="name" class="form-label">Conform password</label>
+                        <input type="password" class="form-control" id="confirmPassword" [formControl]="$any(registerForm.controls['confirmPassword'])" name="confirmPassword"  placeholder="Conform password">
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                          <label for="name" class="form-label">Address</label>
+                          <input type="text" class="form-control" id="address" [formControl]="$any(registerForm.controls['address'])"  placeholder="address">
+                      </div>
+                      <div class="mb-3">
+                      <label for="name" class="form-label">Company Name</label>
+                      <input type="text" class="form-control" id="company_name" [formControl]="$any(registerForm.controls['company_name'])"  placeholder="Company Name" name="company_name">
+                      </div>
+
+                  </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Website Url</label>
+                            <input type="text" class="form-control" id="website_url"  name="website_url" [formControl]="$any(registerForm.controls['website_url'])" placeholder="Website Url">
+                          </div>
+                        <div class="mb-3">
+                        <label for="name" class="form-label">Slogan</label>
+                        <input type="text" class="form-control" id="slogan" [formControl]="$any(registerForm.controls['slogan'])" name="slogan"  placeholder="Slogan">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                  <!-- <div class="mb-3">
+                    <label for="userPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="userPassword" autocomplete="current-password" placeholder="Password">
+                  </div> -->
+                  <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="authCheck">
+                    <label class="form-check-label" for="authCheck">
+                      Remember me
+                    </label>
+                  </div>
+
+                  <div>
+                    <button type="submit" [disabled]="!registerForm.valid"  class="btn btn-primary text-white me-2 mb-2 mb-md-0">Register</button>
+                    <!-- <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
+                      <i class="btn-icon-prepend" data-feather="twitter"></i>
+                      Sign up with twitter
+                    </button> -->
+                  </div>
+                  <div class="row" *ngIf="validationErrors">
+                    <ul class="text-danger">
+                        <li *ngFor="let error of validationErrors">
+                            {{error}}
+                        </li>
+                    </ul>
+                </div>
+                  <a href="" routerLink="/login" class="d-block mt-3 text-muted">Already a user? Login</a>
+                </form>
+              </div>
+            </div>
+          </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

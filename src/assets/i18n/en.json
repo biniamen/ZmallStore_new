@@ -1,0 +1,24 @@
+{
+    "ORDER_STATE": {
+      "WAITING_FOR_ACCEPT_STORE": "Waiting for store acceptance",
+      "CANCELED_BY_USER": "Cancelled by user",
+      "STORE_ACCEPTED": "Store accepted",
+      "STORE_REJECTED": "Store rejected",
+      "STORE_CANCELLED": "Store cancelled",
+      "STORE_CANCELLED_REQUEST": "Store cancellation requested",
+      "STORE_PREPARING_ORDER": "Store preparing order",
+      "ORDER_READY": "Order ready",
+      "WAITING_FOR_DELIVERY_MAN": "Waiting for delivery man",
+      "NO_DELIVERY_MAN_FOUND": "No delivery man found",
+      "DELIVERY_MAN_ACCEPTED": "Delivery man accepted",
+      "DELIVERY_MAN_REJECTED": "Delivery man rejected",
+      "DELIVERY_MAN_CANCELLED": "Delivery man cancelled",
+      "DELIVERY_MAN_COMING": "Delivery man coming",
+      "DELIVERY_MAN_ARRIVED": "Delivery man arrived",
+      "DELIVERY_MAN_PICKED_ORDER": "Delivery man picked order",
+      "DELIVERY_MAN_STARTED_DELIVERY": "Delivery man started delivery",
+      "DELIVERY_MAN_ARRIVED_AT_DESTINATION": "Delivery man arrived at destination",
+      "DELIVERY_MAN_COMPLETE_DELIVERY": "Delivery man completed delivery",
+      "ORDER_COMPLETED": "Order completed"
+    }
+  }
