@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class OrderHistoryComponent implements OnInit {
   // order state
   moment = moment;
-  apiUrl = 'https://test.zmallapp.com/api/store';
+  apiUrl = 'http://196.189.44.49:7000/api/store';
   responseData: any;
   notifyNew: any;
   selectedorder: any;
@@ -30,6 +30,8 @@ export class OrderHistoryComponent implements OnInit {
   public selectedOrderIndex = 0;
   constructor(private http: HttpClient,private router: Router, private toastr: ToastrService, private shareService: SharedService,
     public accountService: AccountService,private responseService: ResponseService) { }
+
+
 
   ngOnInit(): void {
     // this.loadScript('../../../assets/assets/plugins/datatables.net/js/dataTables.min.js');

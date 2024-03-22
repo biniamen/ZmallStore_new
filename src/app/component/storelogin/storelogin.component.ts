@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./storelogin.component.css']
 })
 export class StoreloginComponent implements OnInit {
-  
+
   model: any = {};
   loggedIn = false;
   constructor(public accountService: AccountService,private router: Router, private toastr: ToastrService) { }
@@ -26,14 +26,14 @@ export class StoreloginComponent implements OnInit {
   login() {
     this.accountService.login(this.model).subscribe((response: any) => {
       this.loggedIn == true;
-      // if(response.success == true){
-        // this.toastr.success('Successfully LoggedIn');
-        // this.router.navigateByUrl('/order_list');
-      //}
-      // else {
-      //   this.toastr.error('Something is Wrong');
-      //   this.router.navigateByUrl('/login');
-      // }
+      if(response.success == true){
+        this.toastr.success('Successfully LoggedIn');
+        this.router.navigateByUrl('/order_list');
+      }
+      else {
+        this.toastr.error('Something is Wrong');
+        this.router.navigateByUrl('/login');
+      }
 
       console.log(response);
     })

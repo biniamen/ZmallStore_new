@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://test.zmallapp.com/api/store',
-  adminUrl: 'https://test.zmallapp.com/',
+  apiUrl: 'http://196.189.44.49:7000/api/store',
+  adminUrl: 'http://196.189.44.49:7000',
 
 };
 /*
